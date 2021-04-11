@@ -47,7 +47,7 @@ namespace TaskBuddy
         private bool DropActiveTask()
         {
             if (activeControl == null || listY.Count != listItems.Count) return false;
-            int yActive = activeControl.Location.Y;
+            int yActive = activeControl.Location.Y + previousLocation.Y;
             int iActive = listItems.IndexOf(activeControl);
             if(yActive < listY[iActive]) // dragging up
             {
