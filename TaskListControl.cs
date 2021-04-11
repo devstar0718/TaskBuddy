@@ -12,8 +12,8 @@ namespace TaskBuddy
 {
     public partial class TaskListControl : UserControl
     {
-        private Control activeControl;
-        private Point previousLocation;
+        public Control activeControl;
+        public static Point previousLocation;
         private List<Control> listItems = new List<Control>();
         public int marginWidth = 10, marginHeight = 10;
         public List<int> listY = new List<int>();
@@ -49,6 +49,7 @@ namespace TaskBuddy
             if (activeControl == null || listY.Count != listItems.Count) return false;
             int yActive = activeControl.Location.Y + previousLocation.Y;
             int iActive = listItems.IndexOf(activeControl);
+            if (iActive < 0) return false;
             if(yActive < listY[iActive]) // dragging up
             {
                 for(int i = iActive - 1; i >= 0; i--)
@@ -100,6 +101,7 @@ namespace TaskBuddy
             listItems.Add(new TaskItemControl("Task1"));
             listItems.Add(new TaskItemControl("Task2"));
             listItems.Add(new TaskItemControl("Task3"));
+            listItems.Add(new TaskItemControl("Task4"));
             int i = 0;
             foreach(Control item in listItems)
             {
@@ -107,8 +109,6 @@ namespace TaskBuddy
                 item.Height = 100 + 30 * i;
                 panelLayout.Controls.Add(item);
                 item.MouseDown += new MouseEventHandler(Task_MouseDown);
-                item.MouseMove += new MouseEventHandler(Task_MouseMove);
-                item.MouseUp += new MouseEventHandler(Task_MouseUp);
             }
         }
 
@@ -124,30 +124,74 @@ namespace TaskBuddy
         {
             activeControl = sender as Control;
             previousLocation = e.Location;
-            Cursor = Cursors.Hand;
             activeControl.BringToFront();
+            DoDragDrop(activeControl, DragDropEffects.Move);
         }
 
-        void Task_MouseMove(object sender, MouseEventArgs e)
+        private void TaskListControl_DragDrop(object sender, DragEventArgs e)
         {
-            if (activeControl == null || activeControl != sender)
+            Console.WriteLine("Drag Drop");
+            DropActiveTask();
+            activeControl = null;
+            RefreshListLayout();
+        }
+
+        private void TaskListControl_DragEnter(object sender, DragEventArgs e)
+        {
+            Console.WriteLine("Drag Enter");
+            Control source = (Control)e.Data.GetData(typeof(TaskItemControl));
+            if (source == null || source == activeControl)
+            {
+                Console.WriteLine("Drag Null");
+                return;
+            }
+                
+            e.Effect = DragDropEffects.All;
+            Point pt = PointToClient(new Point(e.X, e.Y));
+            int activeY = pt.Y;
+            int i;
+            for(i = listItems.Count - 1; i >= 0; i--)
+            {
+                if(listItems[i].Location.Y + listItems[i].Height / 2 < activeY)
+                {
+                    listItems.Insert(i + 1, source);
+                    break;
+                }
+            }
+            if(i < 0) listItems.Insert(0, source);
+            GetItemsY();
+            activeControl = source;
+            activeControl.MouseDown += Task_MouseDown;
+            panelLayout.Controls.Add(activeControl);
+            activeControl.BringToFront();
+            activeControl.Location = new Point(pt.X - previousLocation.X, pt.Y - previousLocation.Y);
+            previousLocation = activeControl.PointToClient(new Point(e.X, e.Y));
+        }
+
+        private void TaskListControl_DragLeave(object sender, EventArgs e)
+        {
+            activeControl.MouseDown -= Task_MouseDown;
+            listItems.Remove(activeControl);
+            RefreshListLayout();
+            GetItemsY();
+            Console.WriteLine("Drag Leave");
+        }
+
+        private void TaskListControl_DragOver(object sender, DragEventArgs e)
+        {
+            //Console.WriteLine("Drag Over");
+            e.Effect = DragDropEffects.All;
+            if (activeControl == null)
                 return;
             var location = activeControl.Location;
-            location.Offset(e.Location.X - previousLocation.X, e.Location.Y - previousLocation.Y);
+            Point pt = activeControl.PointToClient(new Point(e.X, e.Y));
+            location.Offset(pt.X - previousLocation.X, pt.Y - previousLocation.Y);
             activeControl.Location = location;
             bool reOrdered = DropActiveTask();
             if (reOrdered)
             {
                 RefreshListLayout();
             }
-        }
-
-        void Task_MouseUp(object sender, MouseEventArgs e)
-        {
-            DropActiveTask();
-            activeControl = null;
-            Cursor = Cursors.Default;
-            RefreshListLayout();
         }
 
         private void panelLayout_Resize(object sender, EventArgs e)

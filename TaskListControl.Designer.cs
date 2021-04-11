@@ -54,6 +54,7 @@
             // 
             // TaskListControl
             // 
+            this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.panelLayout);
@@ -61,6 +62,10 @@
             this.Margin = new System.Windows.Forms.Padding(6);
             this.Name = "TaskListControl";
             this.Size = new System.Drawing.Size(352, 597);
+            this.DragDrop += new System.Windows.Forms.DragEventHandler(this.TaskListControl_DragDrop);
+            this.DragEnter += new System.Windows.Forms.DragEventHandler(this.TaskListControl_DragEnter);
+            this.DragOver += new System.Windows.Forms.DragEventHandler(this.TaskListControl_DragOver);
+            this.DragLeave += new System.EventHandler(this.TaskListControl_DragLeave);
             this.panelLayout.ResumeLayout(false);
             this.ResumeLayout(false);
 

@@ -54,7 +54,7 @@
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1245, 577);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1245, 830);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // taskListControl4
@@ -64,7 +64,7 @@
             this.taskListControl4.Location = new System.Drawing.Point(938, 8);
             this.taskListControl4.Margin = new System.Windows.Forms.Padding(6);
             this.taskListControl4.Name = "taskListControl4";
-            this.taskListControl4.Size = new System.Drawing.Size(299, 561);
+            this.taskListControl4.Size = new System.Drawing.Size(299, 814);
             this.taskListControl4.TabIndex = 3;
             // 
             // taskListControl3
@@ -74,7 +74,7 @@
             this.taskListControl3.Location = new System.Drawing.Point(628, 8);
             this.taskListControl3.Margin = new System.Windows.Forms.Padding(6);
             this.taskListControl3.Name = "taskListControl3";
-            this.taskListControl3.Size = new System.Drawing.Size(296, 561);
+            this.taskListControl3.Size = new System.Drawing.Size(296, 814);
             this.taskListControl3.TabIndex = 2;
             // 
             // taskListControl2
@@ -84,7 +84,7 @@
             this.taskListControl2.Location = new System.Drawing.Point(318, 8);
             this.taskListControl2.Margin = new System.Windows.Forms.Padding(6);
             this.taskListControl2.Name = "taskListControl2";
-            this.taskListControl2.Size = new System.Drawing.Size(296, 561);
+            this.taskListControl2.Size = new System.Drawing.Size(296, 814);
             this.taskListControl2.TabIndex = 1;
             // 
             // taskListControl1
@@ -94,18 +94,19 @@
             this.taskListControl1.Location = new System.Drawing.Point(8, 8);
             this.taskListControl1.Margin = new System.Windows.Forms.Padding(6);
             this.taskListControl1.Name = "taskListControl1";
-            this.taskListControl1.Size = new System.Drawing.Size(296, 561);
+            this.taskListControl1.Size = new System.Drawing.Size(296, 814);
             this.taskListControl1.TabIndex = 0;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1245, 577);
+            this.ClientSize = new System.Drawing.Size(1245, 830);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.Name = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
             this.tableLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
