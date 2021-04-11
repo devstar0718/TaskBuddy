@@ -17,6 +17,17 @@ namespace TaskBuddy
         private List<Control> listItems = new List<Control>();
         public int marginWidth = 10, marginHeight = 10;
         public List<int> listY = new List<int>();
+        public string TaskListName
+        {
+            get
+            {
+                return labelName.Text;
+            }
+            set
+            {
+                labelName.Text = value;
+            }
+        }
 
         public TaskListControl()
         {
@@ -49,7 +60,7 @@ namespace TaskBuddy
             if (activeControl == null || listY.Count != listItems.Count) return false;
             int yActive = activeControl.Location.Y + previousLocation.Y;
             int iActive = listItems.IndexOf(activeControl);
-            if (iActive < 0) return false;
+            //if (iActive < 0) return false;
             if(yActive < listY[iActive]) // dragging up
             {
                 for(int i = iActive - 1; i >= 0; i--)
@@ -101,7 +112,6 @@ namespace TaskBuddy
             listItems.Add(new TaskItemControl("Task1"));
             listItems.Add(new TaskItemControl("Task2"));
             listItems.Add(new TaskItemControl("Task3"));
-            listItems.Add(new TaskItemControl("Task4"));
             int i = 0;
             foreach(Control item in listItems)
             {
@@ -130,7 +140,7 @@ namespace TaskBuddy
 
         private void TaskListControl_DragDrop(object sender, DragEventArgs e)
         {
-            Console.WriteLine("Drag Drop");
+            Console.WriteLine(TaskListName + " - " + "Drag Drop");
             DropActiveTask();
             activeControl = null;
             RefreshListLayout();
@@ -138,14 +148,18 @@ namespace TaskBuddy
 
         private void TaskListControl_DragEnter(object sender, DragEventArgs e)
         {
-            Console.WriteLine("Drag Enter");
+            Console.WriteLine(TaskListName + " - " + "Drag Enter");
             Control source = (Control)e.Data.GetData(typeof(TaskItemControl));
-            if (source == null || source == activeControl)
+            if (source == null)
             {
-                Console.WriteLine("Drag Null");
+                Console.WriteLine(TaskListName + " - " + "Drag Null");
                 return;
             }
-                
+            if (source == activeControl)
+            {
+                Console.WriteLine(TaskListName + " - " + "Drag in Same List");
+                return;
+            }
             e.Effect = DragDropEffects.All;
             Point pt = PointToClient(new Point(e.X, e.Y));
             int activeY = pt.Y;
@@ -172,14 +186,15 @@ namespace TaskBuddy
         {
             activeControl.MouseDown -= Task_MouseDown;
             listItems.Remove(activeControl);
+            activeControl = null;
             RefreshListLayout();
             GetItemsY();
-            Console.WriteLine("Drag Leave");
+            Console.WriteLine(TaskListName + " - " + "Drag Leave");
         }
 
         private void TaskListControl_DragOver(object sender, DragEventArgs e)
         {
-            //Console.WriteLine("Drag Over");
+            Console.WriteLine(TaskListName + " - " + "Drag Over");
             e.Effect = DragDropEffects.All;
             if (activeControl == null)
                 return;

@@ -46,6 +46,7 @@
             // 
             // labelName
             // 
+            this.labelName.AutoSize = true;
             this.labelName.Location = new System.Drawing.Point(3, 11);
             this.labelName.Name = "labelName";
             this.labelName.Size = new System.Drawing.Size(86, 24);
@@ -67,6 +68,7 @@
             this.DragOver += new System.Windows.Forms.DragEventHandler(this.TaskListControl_DragOver);
             this.DragLeave += new System.EventHandler(this.TaskListControl_DragLeave);
             this.panelLayout.ResumeLayout(false);
+            this.panelLayout.PerformLayout();
             this.ResumeLayout(false);
 
         }
