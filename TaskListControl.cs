@@ -46,34 +46,51 @@ namespace TaskBuddy
 
         private bool DropActiveTask()
         {
-            bool isChanged = false;
-            if (activeControl == null || listY.Count != listItems.Count) return isChanged;
-            int y = activeControl.Location.Y;
-            for(int i = listY.Count - 1; i >= 0; i--)
+            if (activeControl == null || listY.Count != listItems.Count) return false;
+            int yActive = activeControl.Location.Y;
+            int iActive = listItems.IndexOf(activeControl);
+            if(yActive < listY[iActive]) // dragging up
             {
-                if(y >= listY[i])
+                for(int i = iActive - 1; i >= 0; i--)
                 {
-                    int j = listItems.IndexOf(activeControl);
-                    if(i != j)
+                    if(yActive < listY[i] + listItems[i].Height / 2)
                     {
-                        Control temp = listItems[j];
-                        listItems[j] = listItems[i];
-                        listItems[i] = temp;
-
-                        isChanged = true;
+                        ExchangeTask(iActive, i);
+                        return true;
                     }
-                    break;
                 }
             }
-            return isChanged;
+            else if(yActive > listY[iActive] + listItems[iActive].Height) // dragging down
+            {
+                for (int i = iActive + 1; i < listItems.Count; i++)
+                {
+                    if (yActive > listY[i] + listItems[i].Height / 2)
+                    {
+                        ExchangeTask(iActive, i);
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        private void ExchangeTask(int i, int j)
+        {
+            Control temp = listItems[j];
+            listItems[j] = listItems[i];
+            listItems[i] = temp;
+
+            GetItemsY();
         }
 
         private void GetItemsY()
         {
             listY.Clear();
+            int y = marginHeight + labelName.Height;
             foreach(Control item in listItems)
             {
-                listY.Add(item.Location.Y);
+                listY.Add(y);
+                y += marginHeight + item.Height;
             }
         }
 
@@ -87,7 +104,7 @@ namespace TaskBuddy
             foreach(Control item in listItems)
             {
                 i++;
-                item.Height = 100 * i;
+                item.Height = 100 + 30 * i;
                 panelLayout.Controls.Add(item);
                 item.MouseDown += new MouseEventHandler(Task_MouseDown);
                 item.MouseMove += new MouseEventHandler(Task_MouseMove);
