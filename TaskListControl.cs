@@ -119,7 +119,25 @@ namespace TaskBuddy
                 item.Height = 100 + 30 * i;
                 panelLayout.Controls.Add(item);
                 item.MouseDown += new MouseEventHandler(Task_MouseDown);
+                item.MouseMove += new MouseEventHandler(Task_MouseMove);
+                item.MouseUp += new MouseEventHandler(Task_MouseUp);
             }
+        }
+
+        private void Task_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (activeControl != null && activeControl == sender)
+            {
+                if(Math.Abs(e.X - previousLocation.X) >= 10 || Math.Abs(e.Y - previousLocation.Y) >= 10)
+                {
+                    activeControl.BringToFront();
+                    DoDragDrop(activeControl, DragDropEffects.Move);
+                }
+            }
+        }
+        private void Task_MouseUp(object sender, MouseEventArgs e)
+        {
+            activeControl = null;
         }
 
         private void InitializePanelLayout()
@@ -134,8 +152,7 @@ namespace TaskBuddy
         {
             activeControl = sender as Control;
             previousLocation = e.Location;
-            activeControl.BringToFront();
-            DoDragDrop(activeControl, DragDropEffects.Move);
+            
         }
 
         private void TaskListControl_DragDrop(object sender, DragEventArgs e)
@@ -145,7 +162,7 @@ namespace TaskBuddy
             activeControl = null;
             RefreshListLayout();
         }
-
+        bool CheckDragOver;
         private void TaskListControl_DragEnter(object sender, DragEventArgs e)
         {
             Console.WriteLine(TaskListName + " - " + "Drag Enter");
@@ -176,15 +193,21 @@ namespace TaskBuddy
             GetItemsY();
             activeControl = source;
             activeControl.MouseDown += Task_MouseDown;
+            activeControl.MouseMove += Task_MouseMove;
+            activeControl.MouseUp += Task_MouseUp;
             panelLayout.Controls.Add(activeControl);
             activeControl.BringToFront();
             activeControl.Location = new Point(pt.X - previousLocation.X, pt.Y - previousLocation.Y);
             previousLocation = activeControl.PointToClient(new Point(e.X, e.Y));
+            CheckDragOver = false;
         }
 
         private void TaskListControl_DragLeave(object sender, EventArgs e)
         {
+            if (!CheckDragOver) return;
             activeControl.MouseDown -= Task_MouseDown;
+            activeControl.MouseMove -= Task_MouseMove;
+            activeControl.MouseUp -= Task_MouseUp;
             listItems.Remove(activeControl);
             activeControl = null;
             RefreshListLayout();
@@ -207,6 +230,7 @@ namespace TaskBuddy
             {
                 RefreshListLayout();
             }
+            CheckDragOver = true;
         }
 
         private void panelLayout_Resize(object sender, EventArgs e)
