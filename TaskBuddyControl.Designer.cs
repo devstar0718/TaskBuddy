@@ -62,48 +62,48 @@
             this.taskListControl4.AllowDrop = true;
             this.taskListControl4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.taskListControl4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.taskListControl4.ListName = "Complete";
             this.taskListControl4.Location = new System.Drawing.Point(947, 8);
             this.taskListControl4.Margin = new System.Windows.Forms.Padding(6);
             this.taskListControl4.Name = "taskListControl4";
             this.taskListControl4.Size = new System.Drawing.Size(300, 641);
             this.taskListControl4.TabIndex = 3;
-            this.taskListControl4.TaskListName = "Complete";
             // 
             // taskListControl3
             // 
             this.taskListControl3.AllowDrop = true;
             this.taskListControl3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.taskListControl3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.taskListControl3.ListName = "Testing";
             this.taskListControl3.Location = new System.Drawing.Point(634, 8);
             this.taskListControl3.Margin = new System.Windows.Forms.Padding(6);
             this.taskListControl3.Name = "taskListControl3";
             this.taskListControl3.Size = new System.Drawing.Size(299, 641);
             this.taskListControl3.TabIndex = 2;
-            this.taskListControl3.TaskListName = "Testing";
             // 
             // taskListControl2
             // 
             this.taskListControl2.AllowDrop = true;
             this.taskListControl2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.taskListControl2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.taskListControl2.ListName = "Working";
             this.taskListControl2.Location = new System.Drawing.Point(321, 8);
             this.taskListControl2.Margin = new System.Windows.Forms.Padding(6);
             this.taskListControl2.Name = "taskListControl2";
             this.taskListControl2.Size = new System.Drawing.Size(299, 641);
             this.taskListControl2.TabIndex = 1;
-            this.taskListControl2.TaskListName = "Working";
             // 
             // taskListControl1
             // 
             this.taskListControl1.AllowDrop = true;
             this.taskListControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.taskListControl1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.taskListControl1.ListName = "Created";
             this.taskListControl1.Location = new System.Drawing.Point(8, 8);
             this.taskListControl1.Margin = new System.Windows.Forms.Padding(6);
             this.taskListControl1.Name = "taskListControl1";
             this.taskListControl1.Size = new System.Drawing.Size(299, 641);
             this.taskListControl1.TabIndex = 0;
-            this.taskListControl1.TaskListName = "Created";
             // 
             // TaskBuddyControl
             // 
@@ -111,7 +111,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.tableLayoutPanel1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.Margin = new System.Windows.Forms.Padding(6);
             this.Name = "TaskBuddyControl";
             this.Size = new System.Drawing.Size(1255, 657);
             this.tableLayoutPanel1.ResumeLayout(false);

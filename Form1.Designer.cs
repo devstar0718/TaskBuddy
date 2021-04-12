@@ -38,6 +38,7 @@
             this.taskBuddyControl1.Location = new System.Drawing.Point(0, 0);
             this.taskBuddyControl1.Margin = new System.Windows.Forms.Padding(6);
             this.taskBuddyControl1.Name = "taskBuddyControl1";
+            this.taskBuddyControl1.ProjectPath = null;
             this.taskBuddyControl1.Size = new System.Drawing.Size(1245, 830);
             this.taskBuddyControl1.TabIndex = 0;
             // 
@@ -48,7 +49,7 @@
             this.ClientSize = new System.Drawing.Size(1245, 830);
             this.Controls.Add(this.taskBuddyControl1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.Margin = new System.Windows.Forms.Padding(6);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace TaskBuddy
 {
@@ -17,7 +18,10 @@ namespace TaskBuddy
         private List<Control> listItems = new List<Control>();
         public int marginWidth = 10, marginHeight = 10;
         public List<int> listY = new List<int>();
-        public string TaskListName
+        private string ProjectPath;
+        private string CSVFile;
+        private DataTable listTaskInfos;
+        public string ListName
         {
             get
             {
@@ -28,16 +32,30 @@ namespace TaskBuddy
                 labelName.Text = value;
             }
         }
-
-        public TaskListControl()
+        public void LoadTasks(string projectPath, string csvFileName)
         {
-            InitializeComponent();
-            InitializePanelLayout();
+            ProjectPath = projectPath;
+            CSVFile = projectPath + "\\" + csvFileName;
+            if (!File.Exists(CSVFile))
+                return;
+            listItems.Clear();
+            listTaskInfos = CSVReader.ReadCSVFile(CSVFile, true);
+            foreach(DataRow row in listTaskInfos.Rows)
+            {
+                string taskPath = ProjectPath + "\\" + row[0].ToString();
+                listItems.Add(new TaskItemControl(taskPath));
+                if (listItems.Count > 10) // limit the size temperailly
+                    break;
+            }
             InitializeItems();
             RefreshListLayout();
             GetItemsY();
         }
-
+        public TaskListControl()
+        {
+            InitializeComponent();
+            InitializePanelLayout();
+        }
         private void RefreshListLayout()
         {
             labelName.Location = new Point(marginWidth, marginHeight);
@@ -108,15 +126,8 @@ namespace TaskBuddy
 
         private void InitializeItems()
         {
-            listItems.Clear();
-            listItems.Add(new TaskItemControl("Task1"));
-            listItems.Add(new TaskItemControl("Task2"));
-            listItems.Add(new TaskItemControl("Task3"));
-            int i = 0;
             foreach(Control item in listItems)
             {
-                i++;
-                item.Height = 100 + 30 * i;
                 panelLayout.Controls.Add(item);
                 item.MouseDown += new MouseEventHandler(Task_MouseDown);
                 item.MouseMove += new MouseEventHandler(Task_MouseMove);
@@ -157,7 +168,7 @@ namespace TaskBuddy
 
         private void TaskListControl_DragDrop(object sender, DragEventArgs e)
         {
-            Console.WriteLine(TaskListName + " - " + "Drag Drop");
+            // Console.WriteLine(TaskListName + " - " + "Drag Drop");
             DropActiveTask();
             activeControl = null;
             RefreshListLayout();
@@ -165,16 +176,16 @@ namespace TaskBuddy
         bool CheckDragOver;
         private void TaskListControl_DragEnter(object sender, DragEventArgs e)
         {
-            Console.WriteLine(TaskListName + " - " + "Drag Enter");
+            // Console.WriteLine(TaskListName + " - " + "Drag Enter");
             Control source = (Control)e.Data.GetData(typeof(TaskItemControl));
             if (source == null)
             {
-                Console.WriteLine(TaskListName + " - " + "Drag Null");
+                // Console.WriteLine(TaskListName + " - " + "Drag Null");
                 return;
             }
             if (source == activeControl)
             {
-                Console.WriteLine(TaskListName + " - " + "Drag in Same List");
+                // Console.WriteLine(TaskListName + " - " + "Drag in Same List");
                 return;
             }
             e.Effect = DragDropEffects.All;
@@ -212,12 +223,12 @@ namespace TaskBuddy
             activeControl = null;
             RefreshListLayout();
             GetItemsY();
-            Console.WriteLine(TaskListName + " - " + "Drag Leave");
+            // Console.WriteLine(TaskListName + " - " + "Drag Leave");
         }
 
         private void TaskListControl_DragOver(object sender, DragEventArgs e)
         {
-            Console.WriteLine(TaskListName + " - " + "Drag Over");
+            // Console.WriteLine(TaskListName + " - " + "Drag Over");
             e.Effect = DragDropEffects.All;
             if (activeControl == null)
                 return;

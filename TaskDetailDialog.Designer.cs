@@ -40,7 +40,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.labelWorkingAt = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.labelCompletedAt = new System.Windows.Forms.Label();
+            this.labelCompleteAt = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.labelStatus = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
@@ -165,15 +165,15 @@
             this.label8.TabIndex = 1;
             this.label8.Text = "Working At:";
             // 
-            // labelCompletedAt
+            // labelCompleteAt
             // 
-            this.labelCompletedAt.AutoSize = true;
-            this.labelCompletedAt.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelCompletedAt.Location = new System.Drawing.Point(397, 45);
-            this.labelCompletedAt.Name = "labelCompletedAt";
-            this.labelCompletedAt.Size = new System.Drawing.Size(96, 20);
-            this.labelCompletedAt.TabIndex = 1;
-            this.labelCompletedAt.Text = "Alexei, Davo";
+            this.labelCompleteAt.AutoSize = true;
+            this.labelCompleteAt.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelCompleteAt.Location = new System.Drawing.Point(397, 45);
+            this.labelCompleteAt.Name = "labelCompleteAt";
+            this.labelCompleteAt.Size = new System.Drawing.Size(96, 20);
+            this.labelCompleteAt.TabIndex = 1;
+            this.labelCompleteAt.Text = "Alexei, Davo";
             // 
             // label10
             // 
@@ -226,7 +226,7 @@
             this.groupBox2.Controls.Add(this.labelTestingAt);
             this.groupBox2.Controls.Add(this.label8);
             this.groupBox2.Controls.Add(this.labelWorkingAt);
-            this.groupBox2.Controls.Add(this.labelCompletedAt);
+            this.groupBox2.Controls.Add(this.labelCompleteAt);
             this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Location = new System.Drawing.Point(307, 75);
             this.groupBox2.Name = "groupBox2";
@@ -278,9 +278,10 @@
             this.Controls.Add(this.labelStatus);
             this.Controls.Add(this.labelName);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.Margin = new System.Windows.Forms.Padding(6);
             this.Name = "TaskDetailDialog";
             this.Text = "TaskDetailDialog";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.TaskDetailDialog_FormClosing);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -306,7 +307,7 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label labelWorkingAt;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label labelCompletedAt;
+        private System.Windows.Forms.Label labelCompleteAt;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label labelStatus;
         private System.Windows.Forms.Label label12;

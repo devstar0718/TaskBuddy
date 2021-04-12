@@ -16,7 +16,7 @@ namespace TaskBuddy
         public Form1()
         {
             InitializeComponent();
-            
+            taskBuddyControl1.LoadProject(@"D:\C\Karl\SuferBuddy\PartialSBData");
         }
     }
 }
