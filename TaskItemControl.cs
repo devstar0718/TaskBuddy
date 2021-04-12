@@ -12,11 +12,13 @@ namespace TaskBuddy
 {
     public partial class TaskItemControl : UserControl
     {
+        private TaskDetailDialog DetailDialog;
         public TaskItemControl(string title)
         {
             InitializeComponent();
-            label1.Text = title;
+            labelName.Text = title;
             RedirectControlMouseEventsToForms();
+            DetailDialog = new TaskDetailDialog();
         }
         void RedirectControlMouseEventsToForms()
         {
@@ -25,8 +27,16 @@ namespace TaskBuddy
                 control.MouseDown += RedirectMouseDown;
                 control.MouseMove += RedirectMouseMove;
                 control.MouseUp += RedirectMouseUp;
+                control.DoubleClick += RedirectDoubleClick;
             }
         }
+
+        private void RedirectDoubleClick(object sender, EventArgs e)
+        {
+            Control control = (Control)sender;
+            OnDoubleClick(e);
+        }
+
         private void RedirectMouseDown(object sender, MouseEventArgs e)
         {
             Control control = (Control)sender;
@@ -53,6 +63,12 @@ namespace TaskBuddy
             MouseEventArgs args = new MouseEventArgs(e.Button, e.Clicks,
                 formPoint.X, formPoint.Y, e.Delta);
             OnMouseUp(args);
+        }
+
+        private void TaskItemControl_DoubleClick(object sender, EventArgs e)
+        {
+            DetailDialog.Show();
+            DetailDialog.Focus();
         }
     }
 }
