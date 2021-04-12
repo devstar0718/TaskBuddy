@@ -59,15 +59,5 @@ namespace TaskBuddy.Properties {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap DefaultLabelImage {
-            get {
-                object obj = ResourceManager.GetObject("DefaultLabelImage", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
     }
 }

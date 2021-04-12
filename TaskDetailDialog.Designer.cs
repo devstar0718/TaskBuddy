@@ -257,7 +257,6 @@
             // 
             // pictureDefault
             // 
-            this.pictureDefault.Image = global::TaskBuddy.Properties.Resources.DefaultLabelImage;
             this.pictureDefault.Location = new System.Drawing.Point(17, 174);
             this.pictureDefault.Name = "pictureDefault";
             this.pictureDefault.Size = new System.Drawing.Size(282, 277);
