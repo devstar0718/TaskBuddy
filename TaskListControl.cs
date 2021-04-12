@@ -37,7 +37,7 @@ namespace TaskBuddy
             ProjectPath = projectPath;
             CSVFile = projectPath + "\\" + csvFileName;
             if (!File.Exists(CSVFile))
-                return;
+                CreateEmptyCSVFileForTaskList();
             listItems.Clear();
             listTaskInfos = CSVReader.ReadCSVFile(CSVFile, true);
             foreach(DataRow row in listTaskInfos.Rows)
@@ -50,6 +50,10 @@ namespace TaskBuddy
             InitializeItems();
             RefreshListLayout();
             GetItemsY();
+        }
+        private void CreateEmptyCSVFileForTaskList()
+        {
+            File.WriteAllText(CSVFile, "Name" + Environment.NewLine);
         }
         public TaskListControl()
         {
@@ -71,8 +75,18 @@ namespace TaskBuddy
                 }
                 taskY += item.Height;
             }
+            SaveTasksToCSVFile();
         }
-
+        private void SaveTasksToCSVFile()
+        {
+            if (listItems.Count == 0) return;
+            CreateEmptyCSVFileForTaskList();
+            foreach(Control item in listItems)
+            {
+                TaskItemControl task = (TaskItemControl)item;
+                File.AppendAllText(CSVFile, task.taskObject.Name + Environment.NewLine);
+            }
+        }
         private bool DropActiveTask()
         {
             if (activeControl == null || listY.Count != listItems.Count) return false;

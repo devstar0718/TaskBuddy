@@ -15,7 +15,7 @@ namespace TaskBuddy
     public partial class TaskItemControl : UserControl
     {
         private TaskDetailDialog DetailDialog;
-        private TaskObject taskObject = null;
+        public TaskObject taskObject = null;
         public string TaskPath {
             get
             {
